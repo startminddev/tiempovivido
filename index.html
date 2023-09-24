@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Tiempo Vivido</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-4">Calculadora de Tiempo Vivido</h1>
+        <div class="mb-4">
+            <label for="fechaNacimiento" class="block text-gray-600">Fecha de Nacimiento:</label>
+            <input type="date" id="fechaNacimiento" class="border rounded px-4 py-2 w-full" />
+        </div>
+        <div class="mb-4">
+            <label for="horaNacimiento" class="block text-gray-600">Hora de Nacimiento:</label>
+            <input type="time" id="horaNacimiento" class="border rounded px-4 py-2 w-full" />
+        </div>
+        <button id="calcularTiempo" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Calcular
+            Tiempo</button>
+        <div id="resultado" class="mt-4"></div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const calcularTiempo = document.getElementById("calcularTiempo");
+            calcularTiempo.addEventListener("click", function () {
+                const fechaNacimiento = document.getElementById("fechaNacimiento").value;
+                const horaNacimiento = document.getElementById("horaNacimiento").value;
+                const fechaHoraNacimiento = new Date(`${fechaNacimiento}T${horaNacimiento}`);
+                const tiempoActual = new Date();
+
+                const tiempoTranscurrido = tiempoActual - fechaHoraNacimiento;
+
+                const segundos = Math.floor(tiempoTranscurrido / 1000);
+                const minutos = Math.floor(segundos / 60);
+                const horas = Math.floor(minutos / 60);
+                const dias = Math.floor(horas / 24);
+
+                const resultado = `Han pasado ${dias} días, ${horas % 24} horas, ${minutos % 60} minutos y ${segundos % 60} segundos desde tu nacimiento.`;
+
+                document.getElementById("resultado").textContent = resultado;
+            });
+        });
+
+    </script>
+</body>
+
+</html>
